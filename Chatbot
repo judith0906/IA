@@ -1,0 +1,30 @@
+!pip install gradio==4.14.0
+
+import random
+import gradio as gr
+
+def zoology_professor(topic):
+  """Responds to the user's topic selection with zoology facts."""
+
+  
+  animal_facts = {
+      "mamíferos": ["Los mamíferos son animales vertebrados con pelo, glándulas mamarias y dan a luz a crías vivas.", "¿Sabías que las ballenas azules son los animales más grandes del planeta?"],
+      "aves": ["Las aves son animales vertebrados con plumas, alas y picos. La mayoría de las aves pueden volar.", "¿Te interesa saber sobre las diferentes técnicas de vuelo de las aves?"],
+      "peces": ["Los peces son animales vertebrados acuáticos con branquias para respirar bajo el agua y aletas para nadar.", "¿Conoces los diferentes tipos de escamas que tienen los peces?"],
+      "reptiles": ["Los reptiles son animales vertebrados con escamas, ponen huevos y son de sangre fría.", "¿Te gustaría aprender sobre las adaptaciones especiales de los reptiles a su entorno?"],
+      "anfibios": ["Los anfibios son animales vertebrados que pueden vivir tanto en el agua como en la tierra. Su piel es húmeda y respiran a través de la piel y los pulmones.", "¿Sabías que las ranas pueden saltar hasta 20 veces su longitud corporal?"],
+      "insectos": ["Los insectos son invertebrados con seis patas, tres segmentos corporales y un exoesqueleto duro.", "¿Te intriga conocer la metamorfosis de las mariposas?"]
+  }
+
+  
+  if topic in animal_facts:
+    fact = random.choice(animal_facts[topic])
+    return f"¡Interesante elección! Sobre los {topic}, te puedo contar que {fact}"
+  else:
+    return f"Lo siento, no tengo información específica sobre '{topic}'. ¿Te gustaría elegir un tema de la lista (mamíferos, aves, peces, reptiles, anfibios, insectos)?"
+
+
+interface = gr.Interface(fn=zoology_professor, inputs=[gr.Dropdown(label="Selecciona un tema de zoología", choices=["mamíferos", "aves", "peces", "reptiles", "anfibios", "insectos"])], outputs=[gr.Textbox(label="Respuesta del profesor de zoología")], title="Chatbot con el Profesor de Zoología")
+
+
+interface.launch()
